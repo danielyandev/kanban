@@ -2,8 +2,7 @@
 
 ## How to use
 
-[Read the documentation](https://danielyandev.gitbook.io/kanban).
-
+<a href="https://danielyandev.gitbook.io/kanban" target="_blank">Read the documentation</a>
 
 ## What's implemented
 
