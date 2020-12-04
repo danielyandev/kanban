@@ -26,6 +26,6 @@ Route::middleware('auth:api')->group(function (){
 });
 
 Route::middleware('guest:api')->group(function () {
-    Route::post('login', 'Auth\LoginController@login');
-    Route::post('register', 'Auth\RegisterController@register');
+    Route::post('login', [\App\Http\Controllers\Auth\LoginController::class, 'login']);
+    Route::post('register', [\App\Http\Controllers\Auth\RegisterController::class, 'register']);
 });

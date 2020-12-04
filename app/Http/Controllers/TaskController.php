@@ -17,7 +17,7 @@ class TaskController extends Controller
             'state_id' => 'required|integer',
             'deadline' => 'nullable|date',
             'assigned_user_id' => 'nullable|integer',
-            'priority' => 'in:'. implode(',', array_keys(Task::$priorities))
+            'priority' => 'required|in:'. implode(',', array_keys(Task::$priorities))
         ];
     }
     /**
