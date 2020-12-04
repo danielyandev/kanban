@@ -9,17 +9,6 @@ use Illuminate\Support\Facades\Validator;
 
 class TaskController extends Controller
 {
-    protected function rules()
-    {
-        return [
-            'name' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'state_id' => 'required|integer',
-            'deadline' => 'nullable|date',
-            'assigned_user_id' => 'nullable|integer',
-            'priority' => 'required|in:'. implode(',', array_keys(Task::$priorities))
-        ];
-    }
     /**
      * Store a newly created resource in storage.
      *
@@ -28,7 +17,15 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), $this->rules());
+        $rules = [
+            'name' => 'required|string|max:255',
+            'state_id' => 'required|integer',
+            'description' => 'nullable|string',
+            'deadline' => 'nullable|date',
+            'assigned_user_id' => 'nullable|integer',
+            'priority' => 'required|in:'. implode(',', array_keys(Task::$priorities))
+        ];
+        $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()){
             return $this->errorResponse([
                 'errors' => $validator->errors()
@@ -65,7 +62,15 @@ class TaskController extends Controller
      */
     public function update(Request $request, Task $task)
     {
-        $validator = Validator::make($request->all(), $this->rules());
+        $rules = [
+            'name' => 'nullable|string|max:255',
+            'state_id' => 'nullable|integer',
+            'description' => 'nullable|string',
+            'deadline' => 'nullable|date',
+            'assigned_user_id' => 'nullable|integer',
+            'priority' => 'nullable|in:'. implode(',', array_keys(Task::$priorities))
+        ];
+        $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()){
             return $this->errorResponse([
                 'errors' => $validator->errors()
