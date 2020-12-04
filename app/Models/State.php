@@ -17,4 +17,14 @@ class State extends Model
     {
         return $query->orderBy('order');
     }
+
+    /**
+     * Tasks is state
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function tasks()
+    {
+        return $this->hasMany(Task::class)->with(['creator', 'assignedUser']);
+    }
 }

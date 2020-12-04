@@ -15,7 +15,7 @@ class StateController extends Controller
      */
     public function index()
     {
-        $states = State::ordered()->get();
+        $states = State::ordered()->with('tasks')->get();
         return $this->successResponse(compact('states'));
     }
 
@@ -102,6 +102,7 @@ class StateController extends Controller
      */
     public function destroy(State $state)
     {
+        $state->tasks()->delete();
         $state->delete();
 
         return $this->successResponse([

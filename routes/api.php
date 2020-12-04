@@ -19,7 +19,10 @@ Route::middleware('auth:api')->group(function (){
         return $request->user();
     });
 
-    Route::resource('/states', \App\Http\Controllers\StateController::class)->except(['create', 'edit', 'show']);
+    Route::resource('/states', \App\Http\Controllers\StateController::class)
+        ->except(['create', 'edit', 'show']);
+    Route::resource('/tasks', \App\Http\Controllers\TaskController::class)
+        ->except(['index', 'create', 'edit']);
 });
 
 Route::middleware('guest:api')->group(function () {

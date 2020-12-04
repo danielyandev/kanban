@@ -32,15 +32,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
-    ];
-
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
+        'email_verified_at',
     ];
 
     /**
@@ -52,5 +44,25 @@ class User extends Authenticatable
     public function validateForPassportPasswordGrant($password)
     {
         return Hash::check($password, $this->password);
+    }
+
+    /**
+     * Tasks created by user
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function tasks()
+    {
+        return $this->hasMany(Task::class, 'user_id');
+    }
+
+    /**
+     * Tasks assigned to user
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function assignedTasks()
+    {
+        return $this->hasMany(Task::class, 'assigned_user_id');
     }
 }
